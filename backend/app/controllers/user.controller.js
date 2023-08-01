@@ -13,18 +13,14 @@ function makeToken(length) {
 }
 
 exports.create = (req,res) => {
-    if(!req.body.username){
-        res.statusCode = 400;
-        return res.send({message: "Username cannot be empty"});
-    }
-    if(!req.body.password){
-        res.statusCode = 400;
-        return res.send({message: "Password cannot be empty!"});
-    }
+    
+    const base64Credentials = req.headers.authorization.split(' ')[1];
+    const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    const [credusername, credpassword] = credentials.split(':');
 
     const payload = new User({
-        username : req.body.username,
-        password : req.body.password,
+        username : credusername,
+        password : credpassword,
         token: null,
         chains: [0,0,0]
     });
@@ -97,4 +93,27 @@ exports.signOut = (req,res) => {
             }
         );
 };
+
+exports.updateChains = (req,res) => {
+    
+    User.findOne({username: req.body.username, token: req.body.token})
+    .then(
+        data => {
+            if(!data){
+                res.statusCode = 500;
+                return res.send({"message":"Invalid token"});
+            }
+            else{
+                User.findOneAndUpdate({username:req.body.username,token: req.body.token},{chains: req.body.chains})
+                .then(res.send({message: "Successfully updated!"}))
+                .catch(
+                    err => {
+                        res.statusCode = 500;
+                        return res.send({message: err.message});
+                    }
+        );
+            }
+        }
+    );
+}
 

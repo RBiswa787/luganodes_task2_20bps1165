@@ -6,11 +6,12 @@ module.exports = app => {
 
     app.use("/api/user", router);
 
-    router.post("/signup", user.create);
+    router.get("/signup", user.create);
 
     router.get("/signin", user.findOne);
 
     router.post("/signout", user.signOut);
-  
+   
+    router.post("/updatechains", user.updateChains);
     
   };

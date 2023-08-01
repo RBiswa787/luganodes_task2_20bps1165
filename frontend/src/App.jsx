@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import './App.css'
-
+import { Routes, Route } from "react-router-dom"
+import Landing from './pages/Landing'
+import Main from './pages/Main'
 function App() {
 
   return (
     <>
-      Canvas Ready
+      <Routes>
+          <Route path={"/"} element={<Landing></Landing>} />
+          <Route path={"/protected"} element={<Main></Main>}/>
+      </Routes>
     </>
   )
 }
