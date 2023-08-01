@@ -12,11 +12,37 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
+
+const db = require("./app/models");
+
+console.log(db.url);
+
+try{
+    db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
+
+require("./app/routes/user.routes")(app);
+}
+catch(err){
+    console.log(err);
+}
+
+
 app.get('/',(req,res) => { 
-    res.send("Server Available!");
+    res.send("Service Available");
 });
 
-const PORT = 5000
+const PORT = process.env.NODE_BACKEND_DOCKER_PORT;
 
 app.listen(PORT,() => {
     console.log(`Server listening at port ${PORT}`);
