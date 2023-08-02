@@ -3,6 +3,13 @@
 
 ### Biswadeep Ray | 20BPS1165
 
+### Installation
+* RUN git clone https://github.com/RBiswa787/luganodes_task2_20bps1165.git
+* RUN cd luganodes_task2_20bps1165
+* RUN docker-compose build
+* RUN docker-compose up
+* Open http://localhost:5173 for frontend service
+
 ### Screenshots
 
 <div style="display: flex; justify-content: flex-start">
