@@ -24,3 +24,21 @@
     <img src="https://github.com/RBiswa787/luganodes_task2_20bps1165/blob/main/frontend/src/assets/resp_landing_signup.png" alt="not available" />
     <img src="https://github.com/RBiswa787/luganodes_task2_20bps1165/blob/main/frontend/src/assets/resp_total_stake.png" alt="not available" />
 </div>
+
+#### How to use?
+* If you are a new member, create an account on the landing page with username and password.
+* Else, click on Sign In, and proceed with username and password.
+* Use checkbox to select the blockchains you want to track and click Track.
+* Selected chains' total staked amount will be visible in the dashboard.
+* You can always change your choice of chains to track.
+
+#### Data Source
+* Cardano API Endpoint: https://js.cexplorer.io/api-static/pool/?poolBechId.json
+* Luganodes Cardano Validator Pool ID: pool1qvudfuw9ar47up5fugs53s2g84q3c4v86z4es6uwsfzzs89rwha
+  Source: https://medium.com/luganodes/cardano-how-to-stake-ada-tokens-with-lugandodes-36f197a407b6
+* Polkadot API Endpoint: https://polkadot.api.subscan.io/api/scan/staking/validator/
+* Polkadot Luganodes Validator Stash Address: 1vTaLKEyj2Wn9xEkUGixBkVXJAd4pzDgXzz9CuVjhVqhHRQ
+  Source: https://medium.com/luganodes/polkadot-how-to-stake-dot-tokens-with-luganodes-b33f344e91eb
+* Kusama API Endpoint: E8MByjWbS49hmzFM1U5rvFJES1Xgz1TSBAZLiYqZQiFTNUY
+  Source: https://medium.com/luganodes/kusama-how-to-stake-ksm-tokens-with-luganodes-e322f56c7d0c
+
