@@ -28,6 +28,14 @@ services:
       - DB_PORT=$MONGODB_DOCKER_PORT
     stdin_open: true
     tty: true
+  frontend_service:
+    build: ./frontend
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_FRONTEND_LOCAL_PORT:$NODE_FRONTEND_DOCKER_PORT
+    stdin_open: true
+    tty: true
   
 volumes:
   db:

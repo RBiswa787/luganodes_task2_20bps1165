@@ -1,5 +1,7 @@
+const axios = require("axios")
 const db = require("../models");
 const User = db.user;
+const configData = require("../config/config.json");
 
 
 function makeToken(length) {
@@ -117,3 +119,81 @@ exports.updateChains = (req,res) => {
     );
 }
 
+async function process(choice){
+    var options_one = {
+        method: 'GET',
+        url: configData["CARDANO_URL"],
+        headers: {Accept: '*/*', 'User-Agent': 'StakeTracker/1.0.0'}
+    };
+
+    var options_two = {
+        method: 'POST',
+        url: configData["POLKA_URL"],
+        headers: {
+          Accept: '*/*',
+          'User-Agent': 'StakeTracker/1.0.0',
+          'X-API-Key': configData["API_KEY"],
+          'Content-Type': 'application/json'
+        },
+        data: {stash: configData["POLKA_STASH"]}
+      };
+
+     var options_three = {
+        method: 'POST',
+        url: configData["KUSAMA_URL"],
+        headers: {
+          Accept: '*/*',
+          'User-Agent': 'StakeTracker/1.0.0',
+          'X-API-Key': configData["API_KEY"],
+          'Content-Type': 'application/json'
+        },
+        data: {stash: configData["KUSAMA_STASH"]}
+      };
+
+      const [firstResponse, secondResponse, thirdResponse] = await Promise.all([
+        axios.request(options_one),
+        axios.request(options_two),
+        axios.request(options_three)
+      ]);
+      
+      var result = [-1,-1,-1];
+
+      if(choice[0] == 1){
+        result[0] = parseFloat((parseInt(firstResponse.data.data.stake)/1000000000000).toFixed(2));
+      }
+      if(choice[1] == 1){
+        result[1] = Math.round(parseInt(secondResponse.data.data.info.bonded_nominators)/1000000000000);
+      }
+      if(choice[2] == 1){
+        result[2] = Math.round(parseInt(thirdResponse.data.data.info.bonded_nominators)/10000000000);
+      }
+
+      return result;
+
+}
+
+
+exports.getStakeData = async (req,res) => {
+
+    var choice = [];
+
+    User.findOne({username: req.body.username, token: req.body.token})
+    .then(
+        async data => {
+            if(!data){
+                res.statusCode = 500;
+                return res.send({"message":"Invalid token"});
+            }
+            else{
+                choice = data.chains;
+                let result = await process(choice);
+                res.statusCode = 200;
+                res.send({"message" :result});
+         }
+        }
+    );
+
+    
+
+    
+}

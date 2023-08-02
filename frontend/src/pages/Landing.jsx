@@ -27,6 +27,10 @@ const navigate = useNavigate();
   }
   
   const handleSignUp = () => {
+    if(username == "" || password == ""){
+        alert("Username or Password cannot be empty.");
+    }
+    else{
     axios({
         method: "GET",
         url: "http://localhost:8686/api/user/signup",
@@ -37,31 +41,57 @@ const navigate = useNavigate();
     })
     .then(res => {
         alert(res.data.message);
-    })
+        axios({
+            method: "GET",
+            url: "http://localhost:8686/api/user/signin",
+            auth: {
+                username: username,
+                password: password
+            }
+        })
+        .then(
+            res => {
+                if(res.data.message == "Found"){
+                    window.localStorage.setItem("username",username);
+                    window.localStorage.setItem("token",res.data.access);
+                    navigate('/protected');
+                }
+                else{
+                    alert("Authentication Not Successful.");
+                }
+            }
+        );
+    });
+  }
   }
 
   const handleSignIn = () => {
-    axios({
-        method: "GET",
-        url: "http://localhost:8686/api/user/signin",
-        auth: {
-            username: username,
-            password: password
-        }
-    })
-    .then(
-        res => {
-            if(res.data.message == "Found"){
-                alert("Authentication Successful.");
-                window.localStorage.setItem("username",username);
-                window.localStorage.setItem("token",res.data.access);
-                navigate('/protected');
+    if(username == "" || password == ""){
+        alert("Username or Password cannot be empty.");
+    }
+    else{
+        axios({
+            method: "GET",
+            url: "http://localhost:8686/api/user/signin",
+            auth: {
+                username: username,
+                password: password
             }
-            else{
-                alert("Authentication Not Successful.");
+        })
+        .then(
+            res => {
+                if(res.data.message == "Found"){
+                    alert("Authentication Successful.");
+                    window.localStorage.setItem("username",username);
+                    window.localStorage.setItem("token",res.data.access);
+                    navigate('/protected');
+                }
+                else{
+                    alert("Authentication Not Successful.");
+                }
             }
-        }
-    );
+        );
+    }
   }
 
   return (
@@ -70,17 +100,17 @@ const navigate = useNavigate();
         {
             !loginView  && 
             <>
-        <Paper style = {{width:width, height: "10%",backgroundColor:"#282c34", justifyContent: "center"}}>
+        <Paper sx={{ boxShadow: "none" }} style = {{width:width, height: "10%",backgroundColor:"#282c34", justifyContent: "center"}}>
         <img src={Logo} alt="" style={{width: "7em",marginTop:"1.5em",marginLeft:"5%"}}/>
         </Paper>
-        <Paper style={{display:"flex",flexDirection:"column",backgroundColor: "#282c34", width: 0.9*width, height: 0.8*height,marginTop:"1.5%"}}>
+        <Paper sx={{ boxShadow: "none" }} style={{display:"flex",flexDirection:"column",backgroundColor: "#282c34", width: 0.9*width, height: 0.8*height,marginTop:"1.5%"}}>
             <Typography style={{display:"flex",color:"#8d97a7",fontSize:15,fontWeight: "bold",marginTop: "5%",marginLeft:"2%"}}>
                 START FOR FREE
             </Typography>
             <Typography style={{display:"flex",color:"white",fontSize:25,fontWeight: "bold",marginTop: "1%",marginLeft:"2%"}}>
                 Create new account <span style={{color: "#208feb"}}>.</span>
             </Typography>
-            <Paper style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"5%",marginLeft:"2%",marginTop:"1%",alignItems:"center"}}>
+            <Paper sx={{ boxShadow: "none" }} style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"5%",marginLeft:"2%",marginTop:"1%",alignItems:"center"}}>
                 <Typography style={{display:"flex",color:"#8d97a7",fontSize:12,fontWeight: "bold"}}>
                     Already a Member?   
                 </Typography>
@@ -89,13 +119,13 @@ const navigate = useNavigate();
                     Sign In
                 </Button>
             </Paper>
-            <Paper style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"2.5%",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
+            <Paper sx={{ boxShadow: "none" }} style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"2.5%",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
                 <TextField sx={{ input: { color: '#282c34', backgroundColor:"white"} }} size="small" id="standard-basic" label="Username" variant="filled" style={{width:"9em"}} 
                 value={username} onChange={(e) => handleUsername(e)}/>
                 <TextField sx={{ input: { color: '#282c34', backgroundColor:"white"} }} type="password" size="small" id="outlined-basic" label="Password" variant="filled" style={{width:"9em",marginLeft:"1em"}} 
                 value={password} onChange={(e) => handlePassword(e)}/>
             </Paper>
-            <Paper style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"4em",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
+            <Paper sx={{ boxShadow: "none" }} style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"4em",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
                 <Button style={{width: "15em",fontSize:15,color:"white",backgroundColor:"#208feb"}} onClick={handleSignUp}>Create Account</Button>
             </Paper>
         </Paper>
@@ -104,17 +134,17 @@ const navigate = useNavigate();
     {
             loginView  && 
             <>
-        <Paper style = {{width:width, height: "10%",backgroundColor:"#282c34", justifyContent: "center"}}>
+        <Paper sx={{ boxShadow: "none" }} style = {{width:width, height: "10%",backgroundColor:"#282c34", justifyContent: "center"}}>
         <img src={Logo} alt="" style={{width: "7em",marginTop:"1.5em",marginLeft:"5%"}}/>
         </Paper>
-        <Paper style={{display:"flex",flexDirection:"column",backgroundColor: "#282c34", width: 0.9*width, height: 0.8*height,marginTop:"1.5%"}}>
+        <Paper sx={{ boxShadow: "none" }} style={{display:"flex",flexDirection:"column",backgroundColor: "#282c34", width: 0.9*width, height: 0.8*height,marginTop:"1.5%"}}>
             <Typography style={{display:"flex",color:"#8d97a7",fontSize:15,fontWeight: "bold",marginTop: "5%",marginLeft:"2%"}}>
                 SIGN IN
             </Typography>
             <Typography style={{display:"flex",color:"white",fontSize:25,fontWeight: "bold",marginTop: "1%",marginLeft:"2%"}}>
                 Welcome back <span style={{color: "#208feb"}}>!</span>
             </Typography>
-            <Paper style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"5%",marginLeft:"2%",marginTop:"1%",alignItems:"center"}}>
+            <Paper sx={{ boxShadow: "none" }} style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"5%",marginLeft:"2%",marginTop:"1%",alignItems:"center"}}>
                 <Typography style={{display:"flex",color:"#8d97a7",fontSize:12,fontWeight: "bold"}}>
                     Not Registered?   
                 </Typography>
@@ -123,13 +153,13 @@ const navigate = useNavigate();
                     Sign Up
                 </Button>
             </Paper>
-            <Paper style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"2.5%",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
+            <Paper sx={{ boxShadow: "none" }} style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"2.5%",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
                 <TextField sx={{ input: { color: '#282c34', backgroundColor:"white"} }} size="small" id="standard-basic" label="Username" variant="filled" style={{width:"9em"}} 
                 value={username} onChange={(e) => handleUsername(e)}/>
                 <TextField sx={{ input: { color: '#282c34', backgroundColor:"white"} }} type="password" size="small" id="outlined-basic" label="Password" variant="filled" style={{width:"9em",marginLeft:"1em"}} 
                 value={password} onChange={(e) => handlePassword(e)}/>
             </Paper>
-            <Paper style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"4em",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
+            <Paper sx={{ boxShadow: "none" }} style={{display:"flex",backgroundColor: "#282c34", width: "100%",height:"4em",marginLeft:"2%",marginTop:"2em",alignItems:"center"}}>
                 <Button style={{width: "15em",fontSize:15,color:"white",backgroundColor:"#208feb"}} onClick={handleSignIn}>Sign In</Button>
             </Paper>
         </Paper>

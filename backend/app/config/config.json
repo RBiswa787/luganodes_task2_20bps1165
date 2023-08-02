@@ -1,0 +1,8 @@
+{
+    "CARDANO_URL": "https://js.cexplorer.io/api-static/pool/pool1qvudfuw9ar47up5fugs53s2g84q3c4v86z4es6uwsfzzs89rwha.json",
+    "POLKA_URL": "https://polkadot.api.subscan.io/api/scan/staking/validator",
+    "KUSAMA_URL": "https://kusama.api.subscan.io/api/scan/staking/validator",
+    "API_KEY": "9f36ecce3998435aab285f7a8968cbfe",
+    "POLKA_STASH": "1vTaLKEyj2Wn9xEkUGixBkVXJAd4pzDgXzz9CuVjhVqhHRQ",
+    "KUSAMA_STASH": "E8MByjWbS49hmzFM1U5rvFJES1Xgz1TSBAZLiYqZQiFTNUY"
+}

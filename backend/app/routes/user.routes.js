@@ -13,5 +13,7 @@ module.exports = app => {
     router.post("/signout", user.signOut);
    
     router.post("/updatechains", user.updateChains);
+
+    router.post("/getstakedata", user.getStakeData);
     
   };
