@@ -133,7 +133,7 @@ Response:
 -   `200 OK`: Chains successfully updated, and a success message is returned.
 -   `500 Internal Server Error`: If there was an issue while processing the request.
 
-### Get Stake Data
+##### Get Stake Data
 
 Description: This API endpoint retrieves total staked amount data from three different sources based on the user's choice of chains to track. It uses an internal function called `process` to fetch the data from external APIs using Axios. The endpoint requires a valid `username` and `token`.
 
