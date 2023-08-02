@@ -39,7 +39,8 @@
 * Polkadot API Endpoint: https://polkadot.api.subscan.io/api/scan/staking/validator/
 * Polkadot Luganodes Validator Stash Address: 1vTaLKEyj2Wn9xEkUGixBkVXJAd4pzDgXzz9CuVjhVqhHRQ
   Source: https://medium.com/luganodes/polkadot-how-to-stake-dot-tokens-with-luganodes-b33f344e91eb
-* Kusama API Endpoint: E8MByjWbS49hmzFM1U5rvFJES1Xgz1TSBAZLiYqZQiFTNUY
+* Kusama API Endpoint: https://kusama.api.subscan.io/api/scan/staking/validator/
+* Kusama Luganodes Validator Stash Address: E8MByjWbS49hmzFM1U5rvFJES1Xgz1TSBAZLiYqZQiFTNUY
   Source: https://medium.com/luganodes/kusama-how-to-stake-ksm-tokens-with-luganodes-e322f56c7d0c
 
 #### Features
@@ -60,7 +61,7 @@
 
 Description: This API endpoint allows you to create a new user with a unique username and password. If the username already exists in the database, it returns a 203 status code with an appropriate message.
 
-Endpoint: Not specified (Assuming it's `/signup`)
+Endpoint: `/signup`
 
 HTTP Method: GET
 
